@@ -13,7 +13,18 @@ defmodule Imgur.API do
     headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
 
     case HTTPoison.get(url, headers) do
-      {:ok, %Response{status_code: 200, body: body}} -> parse_response(body, options)
+      {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
+      {_, error} -> {:error, error}
+    end
+  end
+
+  def post(client, endpoint, params, options \\ []) do
+    url = "https://api.imgur.com" <> endpoint
+    body = {:form, Map.to_list(params)}
+    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+
+    case HTTPoison.post(url, body, headers) do
+      {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
       {_, error} -> {:error, error}
     end
   end
