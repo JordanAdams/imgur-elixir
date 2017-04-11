@@ -29,13 +29,13 @@ defmodule Imgur.Album do
   Create a new album.
 
   ## Optional Params
-  - `list` ids: The image IDs to be included in the album.
-  - `list` deletehashes: The delete hashes for the images.
-  - `string` title: The title of the album.
-  - `string` description: The description of the album.
-  - `string` privacy: The privacy level of the album (public | hidden | secret).
-  - `string` layout: The layout to display the album in (blog | grid | horizontal | vertical).
-  - `string` cover: The ID of the image to use as the album's cover.
+  - ids: List of image IDs to be included in the album.
+  - deletehashes: List of delete hashes for the images.
+  - title: The title of the album.
+  - description: The description of the album.
+  - privacy: The privacy level of the album. Options: public, hidden, secret.
+  - layout: The layout to display the album in. Options: blog, grid, horizontal, vertical.
+  - cover: The ID of the image to use as the album's cover.
   """
   @spec create(Imgur.Client.t, map) :: {:ok, map} | {:error, any}
   def create(client, params) do
