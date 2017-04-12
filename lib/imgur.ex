@@ -22,4 +22,10 @@ defmodule Imgur do
   """
   @spec create_album(Imgur.Client.t, map) :: {:ok, map} | {:error, any}
   defdelegate create_album(client, params), to: Imgur.Album, as: :create
+
+  @doc """
+  See Imgur.Album.update/3
+  """
+  @spec update_album(Imgur.Client.t, String.t, map) :: {:ok, map} | {:error, any}
+  defdelegate update_album(client, id_or_deletehash, params), to: Imgur.Album, as: :update
 end

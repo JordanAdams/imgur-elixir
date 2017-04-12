@@ -30,6 +30,23 @@ defmodule Imgur.API do
   end
 
   @doc """
+  Make a PUT request to the Imgur API.
+
+  ## Options
+  - schema: A valid schema to pass to Poison.decode's `as:` option.
+  """
+  def put(client, endpoint, params, options \\ []) do
+    url = "https://api.imgur.com" <> endpoint
+    body = {:form, Map.to_list(params)}
+    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+
+    case HTTPoison.put(url, body, headers) do
+      {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
+      {_, error} -> {:error, error}
+    end
+  end
+
+  @doc """
   Parses an Imgur response.
 
   ## Options

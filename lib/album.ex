@@ -47,4 +47,27 @@ defmodule Imgur.Album do
 
     API.post(client, "/3/album", params)
   end
+
+  @doc """
+  Update an album.
+
+  ## Optional Params
+  - ids: List of image IDs to be included in the album.
+  - deletehashes: List of delete hashes for the images.
+  - title: The title of the album.
+  - description: The description of the album.
+  - privacy: The privacy level of the album. Options: public, hidden, secret.
+  - layout: The layout to display the album in. Options: blog, grid, horizontal, vertical.
+  - cover: The ID of the image to use as the album's cover.
+  """
+  @spec update(Imgur.Client.t, String.t, map) :: {:ok, map} | {:error, any}
+  def update(client, id_or_deletehash, params) do
+    params = params
+    |> Map.update("ids", "", &Enum.join(&1, ","))
+    |> Map.update("deletehashes", "", &Enum.join(&1, ","))
+    |> Enum.reject(fn {_, value} -> value === "" end)
+    |> Enum.into(%{})
+
+    API.put(client, "/3/album/#{id_or_deletehash}", params)
+  end
 end
