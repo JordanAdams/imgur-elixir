@@ -18,6 +18,12 @@ defmodule Imgur.API do
     end
   end
 
+  @doc """
+  Make a POST request to the Imgur API.
+
+  ## Options
+  - schema: A valid schema to pass to Poison.decode's `as:` option.
+  """
   def post(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
