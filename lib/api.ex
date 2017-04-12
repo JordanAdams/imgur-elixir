@@ -53,6 +53,22 @@ defmodule Imgur.API do
   end
 
   @doc """
+  Make a DELETE request to the Imgur API.
+
+  ## Options
+  - schema: A valid schema to pass to Poison.decode's `as:` option.
+  """
+  def delete(client, endpoint, options \\ []) do
+    url = "https://api.imgur.com" <> endpoint
+    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+
+    case HTTPoison.delete(url, headers) do
+      {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
+      {_, error} -> {:error, error}
+    end
+  end
+
+  @doc """
   Parses an Imgur response.
 
   ## Options

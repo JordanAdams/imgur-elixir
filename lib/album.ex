@@ -70,4 +70,9 @@ defmodule Imgur.Album do
 
     API.put(client, "/3/album/#{id_or_deletehash}", params)
   end
+
+  @spec delete(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def delete(client, id_or_deletehash) do
+    API.delete(client, "/3/album/#{id_or_deletehash}")
+  end
 end

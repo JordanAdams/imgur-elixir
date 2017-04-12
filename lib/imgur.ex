@@ -28,4 +28,10 @@ defmodule Imgur do
   """
   @spec update_album(Imgur.Client.t, String.t, map) :: {:ok, map} | {:error, any}
   defdelegate update_album(client, id_or_deletehash, params), to: Imgur.Album, as: :update
+
+  @doc """
+  See Imgur.Album.delete/2
+  """
+  @spec delete_album(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate delete_album(client, id_or_deletehash), to: Imgur.Album, as: :delete
 end
