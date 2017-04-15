@@ -75,4 +75,18 @@ defmodule Imgur.Album do
   def delete(client, id_or_deletehash) do
     API.delete(client, "/3/album/#{id_or_deletehash}")
   end
+
+  @doc """
+  Add images to an album.
+  """
+  @spec add_images(Imgur.Client.t, String.t, map) :: {:ok, boolean} | {:error, any}
+  def add_images(client, id_or_deletehash, params) do
+    params = params
+    |> Map.update("ids", "", &Enum.join(&1, ","))
+    |> Map.update("deletehashes", "", &Enum.join(&1, ","))
+    |> Enum.reject(fn {_, value} -> value === "" end)
+    |> Enum.into(%{})
+
+    API.put(client, "/3/album/#{id_or_deletehash}/add", params)
+  end
 end
