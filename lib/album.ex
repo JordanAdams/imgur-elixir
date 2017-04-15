@@ -89,4 +89,14 @@ defmodule Imgur.Album do
 
     API.put(client, "/3/album/#{id_or_deletehash}/add", params)
   end
+
+  @doc """
+  Remove images from an album.
+  """
+  @spec remove_images(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
+  def remove_images(client, id_or_deletehash, ids) do
+    params = %{"ids" => Enum.join(ids, ",")}
+
+    API.delete(client, "/3/album/#{id_or_deletehash}/remove_images", params)
+  end
 end

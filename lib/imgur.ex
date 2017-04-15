@@ -40,4 +40,10 @@ defmodule Imgur do
   """
   @spec add_images_to_album(Imgur.Client.t, String.t, map) :: {:ok, boolean} | {:error, any}
   defdelegate add_images_to_album(client, id_or_deletehash, params), to: Imgur.Album, as: :add_images
+
+  @doc """
+  See Imgut.Album.remove_images/3
+  """
+  @spec remove_images_from_album(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
+  defdelegate remove_images_from_album(client, id_or_deletehash, ids), to: Imgur.Album, as: :remove_images
 end
