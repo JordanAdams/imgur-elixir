@@ -19,4 +19,12 @@ defmodule Imgur.Comment do
       "comment" => comment
     })
   end
+
+  @doc """
+  Delete a comment.
+  """
+  @spec delete(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def delete(client, id) do
+    API.delete(client, "/3/comment/#{id}")
+  end
 end

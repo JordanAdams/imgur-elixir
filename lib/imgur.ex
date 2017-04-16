@@ -58,4 +58,10 @@ defmodule Imgur do
   """
   @spec create_comment(Imgur.Client.t, String.t, String.t) :: {:ok, map} | {:error, any}
   defdelegate create_comment(client, image_id, comment), to: Imgur.Comment, as: :create
+
+  @doc """
+  Delete a comment.
+  """
+  @spec delete_comment(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate delete_comment(client, id), to: Imgur.Comment, as: :delete
 end
