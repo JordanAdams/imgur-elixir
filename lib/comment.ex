@@ -46,4 +46,12 @@ defmodule Imgur.Comment do
       "comment" => comment
     })
   end
+
+  @doc """
+  Upvote a comment.
+  """
+  @spec upvote(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def upvote(client, id) do
+    API.post(client, "/3/comment/#{id}/vote/up")
+  end
 end

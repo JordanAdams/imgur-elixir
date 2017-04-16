@@ -43,7 +43,7 @@ defmodule Imgur.API do
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
   @spec post(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
-  def post(client, endpoint, params, options \\ []) do
+  def post(client, endpoint, params \\ %{}, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
     headers = [{"Authorization", authorization_header(client)}]
