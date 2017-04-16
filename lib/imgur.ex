@@ -46,4 +46,10 @@ defmodule Imgur do
   """
   @spec remove_images_from_album(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
   defdelegate remove_images_from_album(client, id_or_deletehash, ids), to: Imgur.Album, as: :remove_images
+
+  @doc """
+  Get a single comment.
+  """
+  @spec get_comment(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
+  defdelegate get_comment(client, id), to: Imgur.Comment, as: :get
 end
