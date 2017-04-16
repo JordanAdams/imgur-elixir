@@ -42,31 +42,31 @@ defmodule Imgur do
   defdelegate add_images_to_album(client, id_or_deletehash, params), to: Imgur.Album, as: :add_images
 
   @doc """
-  See Imgut.Album.remove_images/3
+  See Imgur.Album.remove_images/3
   """
   @spec remove_images_from_album(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
   defdelegate remove_images_from_album(client, id_or_deletehash, ids), to: Imgur.Album, as: :remove_images
 
   @doc """
-  Get a single comment.
+  See Imgur.Comment.get/2
   """
   @spec get_comment(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
   defdelegate get_comment(client, id), to: Imgur.Comment, as: :get
 
   @doc """
-  Create a comment.
+  See Imgur.Comment.create/3
   """
   @spec create_comment(Imgur.Client.t, String.t, String.t) :: {:ok, map} | {:error, any}
   defdelegate create_comment(client, image_id, comment), to: Imgur.Comment, as: :create
 
   @doc """
-  Delete a comment.
+  See Imgur.Comment.delete/2
   """
   @spec delete_comment(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate delete_comment(client, id), to: Imgur.Comment, as: :delete
 
   @doc """
-  Get a comment with its replies.
+  See Imgur.Comment.get_with_replies/2 
   """
   @spec get_comment_with_replies(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
   defdelegate get_comment_with_replies(client, id), to: Imgur.Comment, as: :get_with_replies
