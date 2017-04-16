@@ -1,20 +1,28 @@
 # Imgur
-
-**TODO: Add description**
+> An Elixir wrapper around the Imgur API
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `Imgur` to your list of dependencies in `mix.exs`:
+Add `imgur` to your deps in `mix.exs`
 
 ```elixir
 def deps do
-  [{:Imgur, "~> 0.1.0"}]
+  [{:imgur, "~> 0.1.0"}]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/Imgur](https://hexdocs.pm/Imgur).
+## Usage
+```elixir
+client = Imgur.Client.new(client_id: "myclientid")
+{:ok, image} = Imgur.Image.get(client, "someimageid")
+```
 
-# imgur-elixir
+## Maintainer
+[Jordan Adams](http://github.com/jordanadams)
+
+## Contribute
+PRs are welcome.
+
+If you have any problems or questions, please [create an issue](https://github.com/JordanAdams/imgur-elixir/issues/new).
+
+## License
+[MIT © Jordan Adams](https://github.com/JordanAdams/imgur-elixir/blob/master/LICENSE)
