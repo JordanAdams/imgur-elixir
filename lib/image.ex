@@ -50,4 +50,12 @@ defmodule Imgur.Image do
   def delete(client, id_or_deletehash) do
     API.delete(client, "/3/image/#{id_or_deletehash}")
   end
+
+  @doc """
+  Update the info (title & description) of an image.
+  """
+  @spec update_info(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
+  def update_info(client, id_or_deletehash, params) do
+    API.post(client, "/3/image/#{id_or_deletehash}", params)
+  end
 end

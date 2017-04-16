@@ -124,4 +124,10 @@ defmodule Imgur do
   """
   @spec delete_image(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate delete_image(client, id_or_deletehash), to: Imgur.Image, as: :delete
+
+  @doc """
+  See Imgur.Image.update_info/3
+  """
+  @spec update_image_info(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
+  defdelegate update_image_info(client, id_or_deletehash, params), to: Imgur.Image, as: :update_info
 end
