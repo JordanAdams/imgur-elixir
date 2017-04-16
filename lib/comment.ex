@@ -27,4 +27,12 @@ defmodule Imgur.Comment do
   def delete(client, id) do
     API.delete(client, "/3/comment/#{id}")
   end
+
+  @doc """
+  Get a comment with its replies.
+  """
+  @spec get_with_replies(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
+  def get_with_replies(client, id) do
+    API.get(client, "/3/comment/#{id}/replies", schema: Imgur.Model.Comment.schema())
+  end
 end
