@@ -3,16 +3,29 @@ defmodule Imgur.API do
 
   @doc """
   Make a GET request to the Imgur API.
+  """
+  @spec get(Imgur.Client.t, String.t) :: {:ok, any} | {:error, any}
+  def get(client, endpoint), do: get(client, endpoint, %{})
+
+  @doc """
+  Make a GET request to the Imgur API.
+  """
+  @spec get(Imgur.Client.t, String.t, list) :: {:ok, any} | {:error, any}
+  def get(client, endpoint, options) when is_list(options),
+    do: get(client, endpoint, %{}, options)
+
+  @doc """
+  Make a GET request to the Imgur API.
 
   ## Options
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
-  @spec get(Imgur.Client.t, String.t) :: {:ok, any} | {:error, any}
-  def get(client, endpoint, options \\ []) do
+  @spec get(Imgur.Client.t, String.t, map, list) :: {:ok, any} | {:error, any}
+  def get(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
 
-    case HTTPoison.get(url, headers) do
+    case HTTPoison.get(url, headers, params: params) do
       {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
       {_, error} -> {:error, error}
     end
