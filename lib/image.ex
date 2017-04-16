@@ -58,4 +58,12 @@ defmodule Imgur.Image do
   def update_info(client, id_or_deletehash, params) do
     API.post(client, "/3/image/#{id_or_deletehash}", params)
   end
+
+  @doc """
+  Favorite an image.
+  """
+  @spec favorite(Imgur.Client.t, String.t) :: {:ok, String.t} | {:error, any}
+  def favorite(client, id) do
+    API.post(client, "/3/image/#{id}/favorite")
+  end
 end

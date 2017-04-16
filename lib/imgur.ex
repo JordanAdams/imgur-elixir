@@ -130,4 +130,10 @@ defmodule Imgur do
   """
   @spec update_image_info(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   defdelegate update_image_info(client, id_or_deletehash, params), to: Imgur.Image, as: :update_info
+
+  @doc """
+  See Imgur.Image.favorite/2
+  """
+  @spec favorite_image(Imgur.Client.t, String.t) :: {:ok, String.t} | {:error, any}
+  defdelegate favorite_image(client, id), to: Imgur.Image, as: :favorite
 end
