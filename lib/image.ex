@@ -42,4 +42,12 @@ defmodule Imgur.Image do
 
     API.post(client, "/3/image", params)
   end
+
+  @doc """
+  Delete an image.
+  """
+  @spec delete(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def delete(client, id_or_deletehash) do
+    API.delete(client, "/3/image/#{id_or_deletehash}")
+  end
 end

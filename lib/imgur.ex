@@ -118,4 +118,10 @@ defmodule Imgur do
   """
   @spec upload_image_url(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, any} | {:error, any}
   defdelegate upload_image_url(client, data, params \\ %{}), to: Imgur.Image, as: :upload_url
+
+  @doc """
+  See Imgur.Image.delete/2
+  """
+  @spec delete_image(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate delete_image(client, id_or_deletehash), to: Imgur.Image, as: :delete
 end
