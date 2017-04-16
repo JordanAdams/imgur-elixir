@@ -66,8 +66,14 @@ defmodule Imgur do
   defdelegate delete_comment(client, id), to: Imgur.Comment, as: :delete
 
   @doc """
-  See Imgur.Comment.get_with_replies/2 
+  See Imgur.Comment.get_with_replies/2
   """
   @spec get_comment_with_replies(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
   defdelegate get_comment_with_replies(client, id), to: Imgur.Comment, as: :get_with_replies
+
+  @doc """
+  See Imgur.Comment.create_reply/4
+  """
+  @spec create_comment_reply(Imgur.Client.t, String.t, String.t, String.t) :: {:ok, map} | {:error, any}
+  defdelegate create_comment_reply(client, image_id, comment_id, comment), to: Imgur.Comment, as: :create_reply
 end

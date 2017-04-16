@@ -35,4 +35,15 @@ defmodule Imgur.Comment do
   def get_with_replies(client, id) do
     API.get(client, "/3/comment/#{id}/replies", schema: Imgur.Model.Comment.schema())
   end
+
+  @doc """
+  Create a reply to a comment.
+  """
+  @spec create_reply(Imgur.Client.t, String.t, String.t, String.t) :: {:ok, map} | {:error, any}
+  def create_reply(client, image_id, comment_id, comment) do
+    API.post(client, "/3/comment/#{comment_id}", %{
+      "image_id" => image_id,
+      "comment" => comment
+    })
+  end
 end
