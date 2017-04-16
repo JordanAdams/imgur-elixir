@@ -82,4 +82,10 @@ defmodule Imgur do
   """
   @spec upvote_comment(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate upvote_comment(client, id), to: Imgur.Comment, as: :upvote
+
+  @doc """
+  See Imgur.Comment.downvote/2
+  """
+  @spec downvote_comment(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate downvote_comment(client, id), to: Imgur.Comment, as: :downvote
 end
