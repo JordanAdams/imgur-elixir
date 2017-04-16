@@ -8,7 +8,7 @@ defmodule Imgur do
   @doc """
   See Imgur.Album.images/2
   """
-  @spec get_album(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.Image.t]} | {:error, any}
+  @spec get_album_images(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.Image.t]} | {:error, any}
   defdelegate get_album_images(client, id), to: Imgur.Album, as: :images
 
   @doc """
