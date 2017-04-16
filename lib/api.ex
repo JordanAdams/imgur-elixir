@@ -28,7 +28,7 @@ defmodule Imgur.API do
   @spec get(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def get(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
-    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+    headers = [{"Authorization", authorization_header(client)}]
 
     case HTTPoison.get(url, headers, params: params) do
       {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
@@ -46,7 +46,7 @@ defmodule Imgur.API do
   def post(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
-    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+    headers = [{"Authorization", authorization_header(client)}]
 
     case HTTPoison.post(url, body, headers) do
       {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
@@ -64,7 +64,7 @@ defmodule Imgur.API do
   def put(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
-    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+    headers = [{"Authorization", authorization_header(client)}]
 
     case HTTPoison.put(url, body, headers) do
       {:ok, %Response{status_code: 200, body: json}} -> parse_response(json, options)
@@ -81,7 +81,7 @@ defmodule Imgur.API do
   @spec post(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def delete(client, endpoint, params \\ %{}, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
-    headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
+    headers = [{"Authorization", authorization_header(client)}]
     params = Map.to_list(params)
 
     case HTTPoison.delete(url, headers, params: params) do
@@ -90,12 +90,10 @@ defmodule Imgur.API do
     end
   end
 
-  @doc """
-  Parses an Imgur response.
-
-  ## Options
-  - schema: A valid schema to pass to Poison.decode's `as:` option.
-  """
+  # Parses an Imgur response.
+  #
+  # Options:
+  # - schema: A valid schema to pass to Poison.decode's `as:` option.
   @spec parse_response(String.t) :: {:ok, any} | {:error, any}
   defp parse_response(json, options \\ []) do
     schema = Keyword.get(options, :schema, nil)
@@ -103,6 +101,15 @@ defmodule Imgur.API do
     case Poison.decode(json, as: %{"data" => schema}) do
       {:ok, %{"data" => data}} -> {:ok, data}
       {:error, error} -> {:error, error}
+    end
+  end
+
+  # Generates an Authorization header value for the given client.
+  @spec authorization_header(Imgur.Client.t) :: String.t
+  defp authorization_header(%Imgur.Client{auth: auth}) do
+    case auth do
+      %{access_token: access_token} -> "Bearer #{access_token}"
+      %{client_id: client_id} -> "Client-ID #{client_id}"
     end
   end
 end
