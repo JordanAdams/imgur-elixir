@@ -94,4 +94,10 @@ defmodule Imgur do
   """
   @spec report_comment(Imgur.Client.t, String.t, integer) :: {:ok, nil} | {:error, any}
   defdelegate report_comment(client, id, reason), to: Imgur.Comment, as: :report
+
+  @doc """
+  See Imgur.Image.get/2
+  """
+  @spec get_image(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Image.t} | {:error, any}
+  defdelegate get_image(client, id), to: Imgur.Image, as: :get
 end
