@@ -52,4 +52,10 @@ defmodule Imgur do
   """
   @spec get_comment(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
   defdelegate get_comment(client, id), to: Imgur.Comment, as: :get
+
+  @doc """
+  Create a comment.
+  """
+  @spec create_comment(Imgur.Client.t, String.t, String.t) :: {:ok, map} | {:error, any}
+  defdelegate create_comment(client, image_id, comment), to: Imgur.Comment, as: :create
 end
