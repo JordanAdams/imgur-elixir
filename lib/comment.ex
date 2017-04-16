@@ -62,4 +62,19 @@ defmodule Imgur.Comment do
   def downvote(client, id) do
     API.post(client, "/3/comment/#{id}/vote/down")
   end
+
+  @doc """
+  Report a comment.
+
+  ## Reasons
+  1 Doesn't belong on Imgur
+  2 Spam
+  3 Abusive
+  4 Mature content not marked as mature
+  5 Pornography
+  """
+  @spec report(Imgur.Client.t, String.t, integer) :: {:ok, nil} | {:error, any}
+  def report(client, id, reason) do
+    API.post(client, "/3/comment/#{id}/report", %{"reason" => reason})
+  end
 end
