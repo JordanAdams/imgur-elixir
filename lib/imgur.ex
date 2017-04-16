@@ -100,4 +100,22 @@ defmodule Imgur do
   """
   @spec get_image(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Image.t} | {:error, any}
   defdelegate get_image(client, id), to: Imgur.Image, as: :get
+
+  @doc """
+  See Imgur.Image.upload_file/3
+  """
+  @spec upload_image_file(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, any} | {:error, any}
+  defdelegate upload_image_file(client, path, params \\ %{}), to: Imgur.Image, as: :upload_file
+
+  @doc """
+  See Imgur.Image.upload_base_64/3
+  """
+  @spec upload_image_base_64(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, any} | {:error, any}
+  defdelegate upload_image_base_64(client, data, params \\ %{}), to: Imgur.Image, as: :upload_base_64
+
+  @doc """
+  See Imgur.Image.upload_url/3
+  """
+  @spec upload_image_url(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, any} | {:error, any}
+  defdelegate upload_image_url(client, data, params \\ %{}), to: Imgur.Image, as: :upload_url
 end
