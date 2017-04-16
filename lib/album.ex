@@ -37,7 +37,7 @@ defmodule Imgur.Album do
   - layout: The layout to display the album in. Options: blog, grid, horizontal, vertical.
   - cover: The ID of the image to use as the album's cover.
   """
-  @spec create(Imgur.Client.t, map) :: {:ok, map} | {:error, any}
+  @spec create(Imgur.Client.t, Imgur.API.params) :: {:ok, map} | {:error, any}
   def create(client, params) do
     params = params
     |> Map.update("ids", "", &Enum.join(&1, ","))
@@ -60,7 +60,7 @@ defmodule Imgur.Album do
   - layout: The layout to display the album in. Options: blog, grid, horizontal, vertical.
   - cover: The ID of the image to use as the album's cover.
   """
-  @spec update(Imgur.Client.t, String.t, map) :: {:ok, map} | {:error, any}
+  @spec update(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   def update(client, id_or_deletehash, params) do
     params = params
     |> Map.update("ids", "", &Enum.join(&1, ","))
@@ -72,14 +72,13 @@ defmodule Imgur.Album do
   end
 
   @spec delete(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
-  def delete(client, id_or_deletehash) do
-    API.delete(client, "/3/album/#{id_or_deletehash}")
-  end
+  def delete(client, id_or_deletehash),
+    do: API.delete(client, "/3/album/#{id_or_deletehash}")
 
   @doc """
   Add images to an album.
   """
-  @spec add_images(Imgur.Client.t, String.t, map) :: {:ok, boolean} | {:error, any}
+  @spec add_images(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   def add_images(client, id_or_deletehash, params) do
     params = params
     |> Map.update("ids", "", &Enum.join(&1, ","))

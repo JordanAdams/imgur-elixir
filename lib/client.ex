@@ -5,7 +5,7 @@ defmodule Imgur.Client do
   @doc """
   Create a new API client.
   """
-  @spec new([client_id: String.t]) :: t
+  @spec new([client_id: String.t]) :: Imgur.Client.t
   def new(client_id: client_id) do
     %Imgur.Client{auth: %{client_id: client_id}}
   end

@@ -1,6 +1,8 @@
 defmodule Imgur.API do
   alias HTTPoison.Response
 
+  @type params :: %{optional(String.t) => any}
+
   @doc """
   Make a GET request to the Imgur API.
   """
@@ -9,8 +11,11 @@ defmodule Imgur.API do
 
   @doc """
   Make a GET request to the Imgur API.
+
+  ## Options
+  - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
-  @spec get(Imgur.Client.t, String.t, list) :: {:ok, any} | {:error, any}
+  @spec get(Imgur.Client.t, String.t, keyword) :: {:ok, any} | {:error, any}
   def get(client, endpoint, options) when is_list(options),
     do: get(client, endpoint, %{}, options)
 
@@ -20,7 +25,7 @@ defmodule Imgur.API do
   ## Options
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
-  @spec get(Imgur.Client.t, String.t, map, list) :: {:ok, any} | {:error, any}
+  @spec get(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def get(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]
@@ -37,6 +42,7 @@ defmodule Imgur.API do
   ## Options
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
+  @spec post(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def post(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
@@ -54,6 +60,7 @@ defmodule Imgur.API do
   ## Options
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
+  @spec post(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def put(client, endpoint, params, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     body = {:form, Map.to_list(params)}
@@ -71,6 +78,7 @@ defmodule Imgur.API do
   ## Options
   - schema: A valid schema to pass to Poison.decode's `as:` option.
   """
+  @spec post(Imgur.Client.t, String.t, Imgur.API.params, keyword) :: {:ok, any} | {:error, any}
   def delete(client, endpoint, params \\ %{}, options \\ []) do
     url = "https://api.imgur.com" <> endpoint
     headers = [{"Authorization", "Client-ID #{client.auth.client_id}"}]

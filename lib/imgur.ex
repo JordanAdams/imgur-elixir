@@ -20,13 +20,13 @@ defmodule Imgur do
   @doc """
   See Imgur.Album.create/2
   """
-  @spec create_album(Imgur.Client.t, map) :: {:ok, map} | {:error, any}
+  @spec create_album(Imgur.Client.t, Imgur.API.params) :: {:ok, map} | {:error, any}
   defdelegate create_album(client, params), to: Imgur.Album, as: :create
 
   @doc """
   See Imgur.Album.update/3
   """
-  @spec update_album(Imgur.Client.t, String.t, map) :: {:ok, map} | {:error, any}
+  @spec update_album(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   defdelegate update_album(client, id_or_deletehash, params), to: Imgur.Album, as: :update
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Imgur do
   @doc """
   See Imgur.Album.add_images/3
   """
-  @spec add_images_to_album(Imgur.Client.t, String.t, map) :: {:ok, boolean} | {:error, any}
+  @spec add_images_to_album(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   defdelegate add_images_to_album(client, id_or_deletehash, params), to: Imgur.Album, as: :add_images
 
   @doc """

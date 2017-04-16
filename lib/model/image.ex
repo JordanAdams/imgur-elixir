@@ -51,6 +51,7 @@ defmodule Imgur.Model.Image do
     in_gallery: boolean
   }
 
+  @spec schema() :: %Imgur.Model.Image{}
   def schema do
     %Imgur.Model.Image{}
   end
