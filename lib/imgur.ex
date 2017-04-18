@@ -136,4 +136,10 @@ defmodule Imgur do
   """
   @spec favorite_image(Imgur.Client.t, String.t) :: {:ok, String.t} | {:error, any}
   defdelegate favorite_image(client, id), to: Imgur.Image, as: :favorite
+
+  @doc """
+  See Imgur.Gallery.get/2
+  """
+  @spec get_gallery(Imgur.Client.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  defdelegate get_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get
 end
