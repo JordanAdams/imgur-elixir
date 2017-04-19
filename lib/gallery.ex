@@ -61,6 +61,14 @@ defmodule Imgur.Gallery do
     API.get(client, endpoint, params, schema: [Imgur.Model.GalleryImage.schema()])
   end
 
+  @doc """
+  Get an image from a subreddit gallery.
+  """
+  @spec subreddit_image(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.GalleryImage.t} | {:error, any}
+  def subreddit_image(client, subreddit, image_id) do
+    API.get(client, "/3/gallery/r/#{subreddit}/#{image_id}", schema: Imgur.Model.GalleryImage.schema())
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
