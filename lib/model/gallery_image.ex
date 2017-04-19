@@ -67,4 +67,7 @@ defmodule Imgur.Model.GalleryImage do
     is_album: boolean,
     in_most_viral: boolean
   }
+
+  @spec schema() :: Imgur.Model.GalleryImage.t
+  def schema(), do: %Imgur.Model.GalleryImage{}
 end

@@ -45,6 +45,20 @@ defmodule Imgur.Gallery do
     end
   end
 
+  @doc """
+  Get a subreddit gallery.
+  """
+  @spec subreddit(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryImage{}]} | {:error, any}
+  def subreddit(client, subreddit, params \\ %{}) do
+    sort = Map.get(params, "sort", "time")
+    page = Map.get(params, "page", 0)
+    window = Map.get(params, "window", "week")
+
+    endpoint = "/3/gallery/r/#{subreddit}/#{sort}/#{window}/#{page}"
+
+    API.get(client, endpoint, params, schema: [Imgur.Model.GalleryImage.schema()])
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: %Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
