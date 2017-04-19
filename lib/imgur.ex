@@ -150,13 +150,13 @@ defmodule Imgur do
   defdelegate get_memes_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get_memes
 
   @doc """
-  See Imgur.Galler.get_meme/2
+  See Imgur.Gallery.get_meme/2
   """
   @spec get_memes_gallery_image(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
   defdelegate get_memes_gallery_image(client, image_id), to: Imgur.Gallery, as: :get_meme
 
   @doc """
-  Get a subreddit gallery.
+  See Imgur.Gallery.subreddit/3
   """
   @spec get_subreddit_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryImage{}]} | {:error, any}
   defdelegate get_subreddit_gallery(client, subreddit, params \\ %{}), to: Imgur.Gallery, as: :subreddit
