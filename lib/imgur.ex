@@ -140,24 +140,24 @@ defmodule Imgur do
   @doc """
   See Gallery.get/2
   """
-  @spec get_gallery(Imgur.Client.t, Imgut.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_gallery(Imgur.Client.t, Imgut.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate get_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get
 
   @doc """
   See Gallery.get_memes/2
   """
-  @spec get_memes_gallery(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_memes_gallery(Imgur.Client.t, Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate get_memes_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get_memes
 
   @doc """
   See Gallery.get_meme/2
   """
-  @spec get_memes_gallery_image(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_memes_gallery_image(Imgur.Client.t, String.t) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate get_memes_gallery_image(client, image_id), to: Imgur.Gallery, as: :get_meme
 
   @doc """
   See Gallery.subreddit/3
   """
-  @spec get_subreddit_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryImage{}]} | {:error, any}
+  @spec get_subreddit_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [Imgur.Model.GalleryImage.t]} | {:error, any}
   defdelegate get_subreddit_gallery(client, subreddit, params \\ %{}), to: Imgur.Gallery, as: :subreddit
 end

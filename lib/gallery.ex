@@ -1,10 +1,12 @@
 defmodule Imgur.Gallery do
   alias Imgur.API
 
+  @type gallery_item :: Imgur.Model.GalleryImage.t | Imgur.Model.GalleryAlbum.t
+
   @doc """
   Get the current gallery.
   """
-  @spec get(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
+  @spec get(Imgur.Client.t, Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   def get(client, params \\ %{}) do
     section = Map.get(params, "section", "hot")
     sort = Map.get(params, "sort", "viral")
@@ -22,7 +24,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get the memes subgallery.
   """
-  @spec get_memes(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
+  @spec get_memes(Imgur.Client.t, Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   def get_memes(client, params \\ %{}) do
     sort = Map.get(params, "sort", "viral")
     page = Map.get(params, "page", 0)
@@ -37,7 +39,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get a single item from the memes subgallery.
   """
-  @spec get_meme(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
+  @spec get_meme(Imgur.Client.t, String.t) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   def get_meme(client, image_id) do
     case API.get(client, "/3/g/memes/#{image_id}") do
       {:ok, item} -> {:ok, parse_gallery_item(item)}
@@ -48,7 +50,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get a subreddit gallery.
   """
-  @spec subreddit(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryImage{}]} | {:error, any}
+  @spec subreddit(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [Imgur.Model.GalleryImage.t]} | {:error, any}
   def subreddit(client, subreddit, params \\ %{}) do
     sort = Map.get(params, "sort", "time")
     page = Map.get(params, "page", 0)
@@ -59,7 +61,7 @@ defmodule Imgur.Gallery do
     API.get(client, endpoint, params, schema: [Imgur.Model.GalleryImage.schema()])
   end
 
-  @spec parse_gallery_item(%{optional(String.t) => any}) :: %Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}
+  @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
       true  -> map_to_struct(item, %Imgur.Model.GalleryAlbum{})
