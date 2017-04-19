@@ -148,4 +148,10 @@ defmodule Imgur do
   """
   @spec get_memes_gallery(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
   defdelegate get_memes_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get_memes
+
+  @doc """
+  See Imgur.Galler.get_meme/2
+  """
+  @spec get_memes_gallery_image(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  defdelegate get_memes_gallery_image(client, image_id), to: Imgur.Gallery, as: :get_meme
 end

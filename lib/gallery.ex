@@ -34,6 +34,17 @@ defmodule Imgur.Gallery do
     end
   end
 
+  @doc """
+  Get a single item from the memes subgallery.
+  """
+  @spec get_meme(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  def get_meme(client, image_id) do
+    case API.get(client, "/3/g/memes/#{image_id}") do
+      {:ok, item} -> {:ok, parse_gallery_item(item)}
+      response -> response
+    end
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: %Imgur.Model.Album{} | %Imgur.Model.Image{}
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
