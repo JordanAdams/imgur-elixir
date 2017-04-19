@@ -4,7 +4,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get the current gallery.
   """
-  @spec get(Imgur.Client.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
   def get(client, params \\ %{}) do
     section = Map.get(params, "section", "hot")
     sort = Map.get(params, "sort", "viral")

@@ -140,7 +140,7 @@ defmodule Imgur do
   @doc """
   See Imgur.Gallery.get/2
   """
-  @spec get_gallery(Imgur.Client.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_gallery(Imgur.Client.t, Imgut.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
   defdelegate get_gallery(client, params \\ %{}), to: Imgur.Gallery, as: :get
 
   @doc """
