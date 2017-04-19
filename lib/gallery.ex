@@ -4,7 +4,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get the current gallery.
   """
-  @spec get(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
   def get(client, params \\ %{}) do
     section = Map.get(params, "section", "hot")
     sort = Map.get(params, "sort", "viral")
@@ -22,7 +22,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get the memes subgallery.
   """
-  @spec get_memes(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_memes(Imgur.Client.t, Imgur.API.params) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
   def get_memes(client, params \\ %{}) do
     sort = Map.get(params, "sort", "viral")
     page = Map.get(params, "page", 0)
@@ -37,7 +37,7 @@ defmodule Imgur.Gallery do
   @doc """
   Get a single item from the memes subgallery.
   """
-  @spec get_meme(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.Album{} | %Imgur.Model.Image{}]} | {:error, any}
+  @spec get_meme(Imgur.Client.t, String.t) :: {:ok, [%Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}]} | {:error, any}
   def get_meme(client, image_id) do
     case API.get(client, "/3/g/memes/#{image_id}") do
       {:ok, item} -> {:ok, parse_gallery_item(item)}
@@ -45,11 +45,11 @@ defmodule Imgur.Gallery do
     end
   end
 
-  @spec parse_gallery_item(%{optional(String.t) => any}) :: %Imgur.Model.Album{} | %Imgur.Model.Image{}
+  @spec parse_gallery_item(%{optional(String.t) => any}) :: %Imgur.Model.GalleryAlbum{} | %Imgur.Model.GalleryImage{}
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
-      true  -> map_to_struct(item, %Imgur.Model.Album{})
-      false -> map_to_struct(item, %Imgur.Model.Image{})
+      true  -> map_to_struct(item, %Imgur.Model.GalleryAlbum{})
+      false -> map_to_struct(item, %Imgur.Model.GalleryImage{})
     end
   end
 
