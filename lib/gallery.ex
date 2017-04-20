@@ -89,6 +89,14 @@ defmodule Imgur.Gallery do
     end
   end
 
+  @doc """
+  Get an image in a tag's gallery.
+  """
+  @spec tag_image(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.GalleryImage.t} | {:error, any}
+  def tag_image(client, tag, image_id) do
+    API.get(client, "/3/gallery/t/#{tag}/#{image_id}", schema: Imgur.Model.GalleryImage.schema())
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
