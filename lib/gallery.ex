@@ -69,6 +69,26 @@ defmodule Imgur.Gallery do
     API.get(client, "/3/gallery/r/#{subreddit}/#{image_id}", schema: Imgur.Model.GalleryImage.schema())
   end
 
+  @doc """
+  Get gallery items for tag.
+  """
+  @spec tag(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, Imgur.Model.Tag.t} | {:error, any}
+  def tag(client, name, params \\ %{}) do
+    sort = Map.get(params, "sort", "viral")
+    page = Map.get(params, "page", 0)
+    window = Map.get(params, "window", "week")
+
+    endpoint = "/3/gallery/t/#{name}/#{sort}/#{window}/#{page}"
+    schema = Imgur.Model.Tag.schema()
+
+    case API.get(client, endpoint, params, schema: schema) do
+      {:ok, tag = %{items: items}} when is_list(items) ->
+        items = Enum.map(tag.items, &parse_gallery_item/1)
+        {:ok, Map.put(tag, :items, items)}
+      result -> result
+    end
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

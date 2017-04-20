@@ -162,8 +162,14 @@ defmodule Imgur do
   defdelegate get_subreddit_gallery(client, subreddit, params \\ %{}), to: Imgur.Gallery, as: :subreddit
 
   @doc """
-  Seet Gallery.subreddit_image/3
+  See Gallery.subreddit_image/3
   """
   @spec get_subreddit_gallery_image(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.GalleryImage.t} | {:error, any}
   defdelegate get_subreddit_gallery_image(client, subreddit, image_id), to: Imgur.Gallery, as: :subreddit_image
+
+  @doc """
+  See Gallery.tag/3
+  """
+  @spec get_tag_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, Imgur.Model.Tag.t} | {:error, any}
+  defdelegate get_tag_gallery(client, tag, params \\ %{}), to: Imgur.Gallery, as: :tag
 end
