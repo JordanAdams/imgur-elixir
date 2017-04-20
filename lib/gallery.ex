@@ -97,6 +97,14 @@ defmodule Imgur.Gallery do
     API.get(client, "/3/gallery/t/#{tag}/#{image_id}", schema: Imgur.Model.GalleryImage.schema())
   end
 
+  @doc """
+  Get the tags for a single gallery item.
+  """
+  @spec tags_for_item(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.TagVote.t]} | {:error, any}
+  def tags_for_item(client, id) do
+    API.get(client, "/3/gallery/#{id}/tags", schema: [Imgur.Model.TagVote.schema()])
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

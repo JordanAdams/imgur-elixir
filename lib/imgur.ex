@@ -178,4 +178,10 @@ defmodule Imgur do
   """
   @spec get_tag_gallery_image(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.GalleryImage.t} | {:error, any}
   defdelegate get_tag_gallery_image(client, tag, image_id), to: Imgur.Gallery, as: :tag_image
+
+  @doc """
+  See Gallery.tags_for_item/2
+  """
+  @spec get_tags_for_gallery_item(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.TagVote.t]} | {:error, any}
+  defdelegate get_tags_for_gallery_item(client, id), to: Imgur.Gallery, as: :tags_for_item
 end
