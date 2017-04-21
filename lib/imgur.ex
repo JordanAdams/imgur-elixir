@@ -226,4 +226,10 @@ defmodule Imgur do
   """
   @spec publish_to_gallery(Imgur.Client.t, String.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
   defdelegate publish_to_gallery(client, id, title, params \\ %{}), to: Imgur.Gallery, as: :publish
+
+  @doc """
+  See Gallery.remove/2
+  """
+  @spec remove_from_gallery(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate remove_from_gallery(client, id), to: Imgur.Gallery, as: :remove
 end
