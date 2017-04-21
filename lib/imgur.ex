@@ -204,11 +204,14 @@ defmodule Imgur do
   defdelegate update_tags_for_gallery_item(client, item_id, tags), to: Imgur.Gallery, as: :update_tags_for_item
 
   @doc """
-  Search the gallery.
+  See Gallery.search/3
   """
   @spec search_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate search_gallery(client, query, params), to: Imgur.Gallery, as: :search
 
+  @doc """
+  See Gallery.search/2
+  """
   @spec search_gallery(Imgur.Client.t, String.t | Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate search_gallery(client, query_or_params), to: Imgur.Gallery, as: :search
 end
