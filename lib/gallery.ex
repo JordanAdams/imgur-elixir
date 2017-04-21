@@ -102,7 +102,12 @@ defmodule Imgur.Gallery do
   """
   @spec tags_for_item(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.TagVote.t]} | {:error, any}
   def tags_for_item(client, id) do
-    API.get(client, "/3/gallery/#{id}/tags", schema: [Imgur.Model.TagVote.schema()])
+    schema = %{"tags" => [Imgur.Model.TagVote.schema()]}
+
+    case API.get(client, "/3/gallery/#{id}/tags", schema: schema) do
+      {:ok, %{"tags" => tags}} -> {:ok, tags}
+      result -> result
+    end
   end
 
   @doc """
