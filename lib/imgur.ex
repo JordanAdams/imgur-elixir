@@ -184,4 +184,16 @@ defmodule Imgur do
   """
   @spec get_tags_for_gallery_item(Imgur.Client.t, String.t) :: {:ok, [Imgur.Model.TagVote.t]} | {:error, any}
   defdelegate get_tags_for_gallery_item(client, id), to: Imgur.Gallery, as: :tags_for_item
+
+  @doc """
+  See Gallery.upvote_tag_item/3
+  """
+  @spec upvote_tag_gallery_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate upvote_tag_gallery_item(client, item_id, tag), to: Imgur.Gallery, as: :upvote_tag_item
+
+  @doc """
+  See Gallery.downvote_tag_item/3
+  """
+  @spec downvote_tag_gallery_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate downvote_tag_gallery_item(client, item_id, tag), to: Imgur.Gallery, as: :downvote_tag_item
 end

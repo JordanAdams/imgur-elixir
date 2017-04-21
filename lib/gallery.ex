@@ -105,6 +105,22 @@ defmodule Imgur.Gallery do
     API.get(client, "/3/gallery/#{id}/tags", schema: [Imgur.Model.TagVote.schema()])
   end
 
+  @doc """
+  Upvote a tag gallery item.
+  """
+  @spec upvote_tag_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  def upvote_tag_item(client, item_id, tag) do
+    API.post(client, "/3/gallery/#{item_id}/vote/tag/#{tag}/up")
+  end
+
+  @doc """
+  Downvote a tag gallery item.
+  """
+  @spec downvote_tag_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  def downvote_tag_item(client, item_id, tag) do
+    API.post(client, "/3/gallery/#{item_id}/vote/tag/#{tag}/down")
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
