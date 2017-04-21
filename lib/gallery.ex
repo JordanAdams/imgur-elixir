@@ -113,7 +113,7 @@ defmodule Imgur.Gallery do
   @doc """
   Upvote a tag gallery item.
   """
-  @spec upvote_tag_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  @spec upvote_tag_item(Imgur.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
   def upvote_tag_item(client, item_id, tag) do
     API.post(client, "/3/gallery/#{item_id}/vote/tag/#{tag}/up")
   end
@@ -121,7 +121,7 @@ defmodule Imgur.Gallery do
   @doc """
   Downvote a tag gallery item.
   """
-  @spec downvote_tag_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
+  @spec downvote_tag_item(Imgur.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
   def downvote_tag_item(client, item_id, tag) do
     API.post(client, "/3/gallery/#{item_id}/vote/tag/#{tag}/down")
   end
