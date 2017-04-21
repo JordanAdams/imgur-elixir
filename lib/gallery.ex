@@ -126,6 +126,16 @@ defmodule Imgur.Gallery do
     API.post(client, "/3/gallery/#{item_id}/vote/tag/#{tag}/down")
   end
 
+  @doc """
+  Update the tags for a gallery item.
+  """
+  @spec update_tags_for_item(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
+  def update_tags_for_item(client, item_id, tags) do
+    API.post(client, "/3/gallery/tags/#{item_id}", %{
+      "tags" => Enum.join(tags, ",")
+    })
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

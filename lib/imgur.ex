@@ -196,4 +196,10 @@ defmodule Imgur do
   """
   @spec downvote_tag_gallery_item(Imgut.Client.t, String.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate downvote_tag_gallery_item(client, item_id, tag), to: Imgur.Gallery, as: :downvote_tag_item
+
+  @doc """
+  See Gallery.update_tags_for_gallery_item/3
+  """
+  @spec update_tags_for_gallery_item(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
+  defdelegate update_tags_for_gallery_item(client, item_id, tags), to: Imgur.Gallery, as: :update_tags_for_item
 end
