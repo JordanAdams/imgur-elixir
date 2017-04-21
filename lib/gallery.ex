@@ -170,6 +170,18 @@ defmodule Imgur.Gallery do
     end
   end
 
+  @doc """
+  Publish an image or album to the public gallery.
+  """
+  @spec publish(Imgur.Client.t, String.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
+  def publish(client, id, title, params \\ %{}) do
+    params = params
+    |> Map.put("title", title)
+    |> Map.update("tags", "", &Enum.join(&1, ","))
+
+    API.post(client, "/3/gallery/#{id}", params)
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

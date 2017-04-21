@@ -220,4 +220,10 @@ defmodule Imgur do
   """
   @spec random_gallery(Imgur.Client.t, integer) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate random_gallery(client, page \\ 0), to: Imgur.Gallery, as: :random
+
+  @doc """
+  See Gallery.publish/4
+  """
+  @spec publish_to_gallery(Imgur.Client.t, String.t, String.t, Imgur.API.params) :: {:ok, boolean} | {:error, any}
+  defdelegate publish_to_gallery(client, id, title, params \\ %{}), to: Imgur.Gallery, as: :publish
 end
