@@ -159,6 +159,17 @@ defmodule Imgur.Gallery do
     end
   end
 
+  @doc """
+  Get a random set of gallery items.
+  """
+  @spec random(Imgur.Client.t, integer) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
+  def random(client, page \\ 0) do
+    case API.get(client, "/3/gallery/random/random/#{page}") do
+      {:ok, items} -> {:ok, Enum.map(items, &parse_gallery_item/1)}
+      result -> result
+    end
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

@@ -214,4 +214,10 @@ defmodule Imgur do
   """
   @spec search_gallery(Imgur.Client.t, String.t | Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
   defdelegate search_gallery(client, query_or_params), to: Imgur.Gallery, as: :search
+
+  @doc """
+  See Gallery.random/2
+  """
+  @spec random_gallery(Imgur.Client.t, integer) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
+  defdelegate random_gallery(client, page \\ 0), to: Imgur.Gallery, as: :random
 end
