@@ -136,6 +136,29 @@ defmodule Imgur.Gallery do
     })
   end
 
+  @doc """
+  Search the gallery.
+  """
+  @spec search(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, any} | {:error, any}
+  def search(client, query, params),
+    do: search(client, Map.put(params, "q", query))
+
+  @spec search(Imgur.Client.t, String.t) :: {:ok, any} | {:error, any}
+  def search(client, query) when is_binary(query),
+    do: search(client, %{"q" => query})
+
+  @spec search(Imgur.Client.t, Imgur.API.params) :: {:ok, any} | {:error, any}
+  def search(client, params) do
+    sort = Map.get(params, "sort", "time")
+    page = Map.get(params, "page", 0)
+    window = Map.get(params, "window", "all")
+
+    case API.get(client, "/3/gallery/search/#{sort}/#{window}/#{page}", params) do
+      {:ok, items} -> {:ok, Enum.map(items, &parse_gallery_item/1)}
+      result -> result
+    end
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

@@ -202,4 +202,13 @@ defmodule Imgur do
   """
   @spec update_tags_for_gallery_item(Imgur.Client.t, String.t, [String.t]) :: {:ok, boolean} | {:error, any}
   defdelegate update_tags_for_gallery_item(client, item_id, tags), to: Imgur.Gallery, as: :update_tags_for_item
+
+  @doc """
+  Search the gallery.
+  """
+  @spec search_gallery(Imgur.Client.t, String.t, Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
+  defdelegate search_gallery(client, query, params), to: Imgur.Gallery, as: :search
+
+  @spec search_gallery(Imgur.Client.t, String.t | Imgur.API.params) :: {:ok, [Imgur.Gallery.gallery_item]} | {:error, any}
+  defdelegate search_gallery(client, query_or_params), to: Imgur.Gallery, as: :search
 end
