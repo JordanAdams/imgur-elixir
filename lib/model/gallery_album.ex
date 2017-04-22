@@ -58,4 +58,11 @@ defmodule Imgur.Model.GalleryAlbum do
     images: [%Imgur.Model.Image{}],
     in_most_viral: boolean
   }
+
+  @spec schema() :: %Imgur.Model.GalleryAlbum{images: [%Imgur.Model.GalleryImage{}]}
+  def schema() do
+    %Imgur.Model.GalleryAlbum{
+      images: [%Imgur.Model.Image{}]
+    }
+  end
 end

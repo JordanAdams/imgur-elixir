@@ -232,4 +232,10 @@ defmodule Imgur do
   """
   @spec remove_from_gallery(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate remove_from_gallery(client, id), to: Imgur.Gallery, as: :remove
+
+  @doc """
+  See Gallery.album/2
+  """
+  @spec get_gallery_album(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.GalleryAlbum.t} | {:error, any}
+  defdelegate get_gallery_album(client, id), to: Imgur.Gallery, as: :album
 end

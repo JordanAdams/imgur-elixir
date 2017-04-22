@@ -189,6 +189,13 @@ defmodule Imgur.Gallery do
   def remove(client, id),
     do: API.delete(client, "/3/gallery/#{id}")
 
+  @doc """
+  Get an album from the gallery.
+  """
+  @spec album(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.GalleryAlbum.t} | {:error, any}
+  def album(client, id),
+    do: API.get(client, "/3/gallery/album/#{id}", schema: Imgur.Model.GalleryAlbum.schema())
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
