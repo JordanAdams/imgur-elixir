@@ -203,6 +203,26 @@ defmodule Imgur.Gallery do
   def image(client, id),
     do: API.get(client, "/3/gallery/image/#{id}", schema: Imgur.Model.GalleryImage.schema())
 
+  @doc """
+  Report an item in the gallery.
+
+  ## Reasons
+  1 Doesn't belong on Imgur
+  2 Spam
+  3 Abusive
+  4 Mature content not marked as mature
+  5 Pornography
+  """
+  @spec report_item(Imgur.Client.t, String.t, integer) :: {:ok, boolean} | {:error, any}
+  def report_item(client, id, reason) do
+    API.post(client, "/3/gallery/#{id}/report", %{"reason" => reason})
+  end
+
+  @spec report_item(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def report_item(client, id) do
+    API.post(client, "/3/gallery/#{id}/report")
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

@@ -244,4 +244,16 @@ defmodule Imgur do
   """
   @spec get_gallery_image(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.GalleryImage.t} | {:error, any}
   defdelegate get_gallery_image(client, id), to: Imgur.Gallery, as: :image
+
+  @doc """
+  See Gallery.report/3
+  """
+  @spec report_gallery_item(Imgur.Client.t, String.t, integer) :: {:ok, boolean} | {:error, any}
+  defdelegate report_gallery_item(client, id, reason), to: Imgur.Gallery, as: :report_item
+
+  @doc """
+  See Gallery.report/2
+  """
+  @spec report_gallery_item(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate report_gallery_item(client, id), to: Imgur.Gallery, as: :report_item
 end
