@@ -223,6 +223,14 @@ defmodule Imgur.Gallery do
     API.post(client, "/3/gallery/#{id}/report")
   end
 
+  @doc """
+  Get vote information for a gallery item.
+  """
+  @spec votes_for_item(Imgur.Client.t, String.t) :: {:ok, Imgur.Model.Vote.t} | {:error, any}
+  def votes_for_item(client, id) do
+    API.get(client, "/3/gallery/#{id}/votes", schema: Imgur.Model.Vote.schema())
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
