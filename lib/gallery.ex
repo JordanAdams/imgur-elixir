@@ -247,6 +247,14 @@ defmodule Imgur.Gallery do
     API.post(client, "/3/gallery/#{id}/vote/down")
   end
 
+  @doc """
+  Get all comments for a gallery item
+  """
+  @spec comments_for_item(Imgur.Client.t, String.t, String.t) :: {:ok, [Imgur.Model.Comment.t]} | {:error, any}
+  def comments_for_item(client, id, sort \\ "best") do
+    API.get(client, "/3/gallery/#{id}/comments/#{sort}", schema: [Imgur.Model.Comment.schema()])
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
