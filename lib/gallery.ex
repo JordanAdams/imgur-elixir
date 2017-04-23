@@ -239,6 +239,14 @@ defmodule Imgur.Gallery do
     API.post(client, "/3/gallery/#{id}/vote/up")
   end
 
+  @doc """
+  Downvote a gallery item.
+  """
+  @spec downvote_item(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  def downvote_item(client, id) do
+    API.post(client, "/3/gallery/#{id}/vote/down")
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

@@ -268,5 +268,10 @@ defmodule Imgur do
   """
   @spec upvote_gallery_item(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
   defdelegate upvote_gallery_item(client, id), to: Imgur.Gallery, as: :upvote_item
-  defdelegate upvote_gallery_item(client, id), to: Imgur.Gallery, as: :votes_for_item
+
+  @doc """
+  See Gallery.downvote_item/2
+  """
+  @spec downvote_gallery_item(Imgur.Client.t, String.t) :: {:ok, boolean} | {:error, any}
+  defdelegate downvote_gallery_item(client, id), to: Imgur.Gallery, as: :downvote_item
 end
