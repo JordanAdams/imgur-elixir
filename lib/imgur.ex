@@ -304,4 +304,10 @@ defmodule Imgur do
   """
   @spec comment_ids_for_gallery_item(Imgur.Client.t, String.t) :: {:ok, [integer]} | {:error, any}
   defdelegate comment_ids_for_gallery_item(client, item_id), to: Imgur.Gallery, as: :comment_ids_for_item
+
+  @doc """
+  See Gallery.comment_count_for_item/2
+  """
+  @spec comment_count_for_gallery_item(Imgur.Client.t, String.t) :: {:ok, integer} | {:error, any}
+  defdelegate comment_count_for_gallery_item(client, item_id), to: Imgur.Gallery, as: :comment_count_for_item
 end
