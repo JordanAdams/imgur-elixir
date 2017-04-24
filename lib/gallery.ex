@@ -271,6 +271,14 @@ defmodule Imgur.Gallery do
     API.post(client, "/3/gallery/#{item_id}/comment", %{"comment" => comment})
   end
 
+  @doc """
+  Reply to a comment on a gallery item.
+  """
+  @spec reply_to_comment_on_item(Imgur.Client.t, String.t, String.t, String.t) :: {:ok, any} | {:error, any}
+  def reply_to_comment_on_item(client, item_id, comment_id, reply) do
+    API.post(client, "/3/gallery/#{item_id}/comment/#{comment_id}", %{"comment" => reply})
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do
