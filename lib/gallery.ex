@@ -263,6 +263,14 @@ defmodule Imgur.Gallery do
     API.get(client, "/3/gallery/#{item_id}/comment/#{comment_id}", schema: Imgur.Model.Comment.schema())
   end
 
+  @doc """
+  Create a comment on a gallery item.
+  """
+  @spec create_comment_on_item(Imgur.Client.t, String.t, String.t) :: {:ok, %{optional(String.t) => any}} | {:error, any}
+  def create_comment_on_item(client, item_id, comment) do
+    API.post(client, "/3/gallery/#{item_id}/comment", %{"comment" => comment})
+  end
+
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
   defp parse_gallery_item(item = %{"is_album" => is_album}) do
     case is_album do

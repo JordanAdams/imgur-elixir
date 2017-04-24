@@ -286,4 +286,10 @@ defmodule Imgur do
   """
   @spec comment_for_gallery_item(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
   defdelegate comment_for_gallery_item(client, item_id, comment_id), to: Imgur.Gallery, as: :comment_for_item
+
+  @doc """
+  See Gallery.create_comment_on_item/3
+  """
+  @spec create_comment_on_gallery_item(Imgur.Client.t, String.t, String.t) :: {:ok, %{optional(String.t) => any}} | {:error, any}
+  defdelegate create_comment_on_gallery_item(client, item_id, comment), to: Imgur.Gallery, as: :create_comment_on_item
 end
