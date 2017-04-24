@@ -280,4 +280,10 @@ defmodule Imgur do
   """
   @spec comments_for_gallery_item(Imgur.Client.t, String.t, String.t) :: {:ok, [Imgur.Model.Comment.t]} | {:error, any}
   defdelegate comments_for_gallery_item(client, id, sort \\ "best"), to: Imgur.Gallery, as: :comments_for_item
+
+  @doc """
+  See Gallery.comment_for_item/3
+  """
+  @spec comment_for_gallery_item(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
+  defdelegate comment_for_gallery_item(client, item_id, comment_id), to: Imgur.Gallery, as: :comment_for_item
 end

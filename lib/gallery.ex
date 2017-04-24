@@ -248,11 +248,19 @@ defmodule Imgur.Gallery do
   end
 
   @doc """
-  Get all comments for a gallery item
+  Get all comments for a gallery item.
   """
   @spec comments_for_item(Imgur.Client.t, String.t, String.t) :: {:ok, [Imgur.Model.Comment.t]} | {:error, any}
   def comments_for_item(client, id, sort \\ "best") do
     API.get(client, "/3/gallery/#{id}/comments/#{sort}", schema: [Imgur.Model.Comment.schema()])
+  end
+
+  @doc """
+  Get a single comment for a gallery item.
+  """
+  @spec comment_for_item(Imgur.Client.t, String.t, String.t) :: {:ok, Imgur.Model.Comment.t} | {:error, any}
+  def comment_for_item(client, item_id, comment_id) do
+    API.get(client, "/3/gallery/#{item_id}/comment/#{comment_id}", schema: Imgur.Model.Comment.schema())
   end
 
   @spec parse_gallery_item(%{optional(String.t) => any}) :: Imgur.Gallery.gallery_item
