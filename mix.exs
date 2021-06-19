@@ -15,7 +15,7 @@ defmodule Imgur.Mixfile do
   end
 
   defp deps do
-    [{:httpoison, "~> 0.11.1"},
+    [{:httpoison, "~> 1.7.0"},
      {:poison, "~> 3.1"}]
   end
 end
